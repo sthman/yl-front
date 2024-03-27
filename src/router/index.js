@@ -113,7 +113,11 @@ export const constantRoutes = [
       {
         path: '/organization/room',
         component: () => import('@/views/organization/room/index'),
-      }
+      },
+      {
+        path: '/bank/bank',
+        component: () => import('@/views/bank/bank/index'),
+      },
     ]
   }
 ]
