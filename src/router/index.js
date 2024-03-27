@@ -192,7 +192,39 @@ export const constantRoutes = [
       },
       {
         path: '/storehouse/witem',
-        component: () => import('@/views/storehouse/warehouse/index'),
+        component: () => import('@/views/storehouse/witem/index'),
+      },
+       {
+        path: '/tickets/telwork',
+        component: () => import('@/views/tickets/telwork/index'),
+      }, 
+      {
+        path: '/tickets/type',
+        component: () => import('@/views/tickets/type/index'),
+      }, 
+      {
+        path: '/tickets/worder',
+        component: () => import('@/views/tickets/worder/index'),
+      },
+      {
+        path: '/volunteer/activity',
+        component: () => import('@/views/volunteer/activity/index'),
+      },
+      {
+        path: '/volunteer/record',
+        component: () => import('@/views/volunteer/record/index'),
+      },
+      {
+        path: '/volunteer/vactivity',
+        component: () => import('@/views/volunteer/vactivity/index'),
+      },
+      {
+        path: '/volunteer/volunteer',
+        component: () => import('@/views/volunteer/volunteer/index'),
+      },
+      {
+        path: '/volunteer/vservice',
+        component: () => import('@/views/volunteer/vservice/index'),
       },
     ]
   }
