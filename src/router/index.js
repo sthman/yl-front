@@ -150,6 +150,50 @@ export const constantRoutes = [
         path: '/funds/type',
         component: () => import('@/views/funds/type/index'),
       },
+      {
+        path: '/health/information',
+        component: () => import('@/views/health/information/index'),
+      },
+      {
+        path: '/health/reservice',
+        component: () => import('@/views/health/reservice/index'),
+      },
+      {
+        path: '/health/type',
+        component: () => import('@/views/health/type/index'),
+      },
+      {
+        path: '/storehouse/category',
+        component: () => import('@/views/storehouse/category/index'),
+      },
+      {
+        path: '/storehouse/item',
+        component: () => import('@/views/storehouse/item/index'),
+      },
+      {
+        path: '/storehouse/itemrecipe',
+        component: () => import('@/views/storehouse/item/index'),
+      },
+      {
+        path: '/storehouse/recipe',
+        component: () => import('@/views/storehouse/recipe/index'),
+      },
+      {
+        path: '/storehouse/record',
+        component: () => import('@/views/storehouse/record/index'),
+      },
+      {
+        path: '/storehouse/type',
+        component: () => import('@/views/storehouse/type/index'),
+      },
+      {
+        path: '/storehouse/warehouse',
+        component: () => import('@/views/storehouse/warehouse/index'),
+      },
+      {
+        path: '/storehouse/witem',
+        component: () => import('@/views/storehouse/warehouse/index'),
+      },
     ]
   }
 ]
