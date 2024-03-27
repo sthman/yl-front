@@ -118,6 +118,30 @@ export const constantRoutes = [
         path: '/bank/bank',
         component: () => import('@/views/bank/bank/index'),
       },
+      {
+        path: '/credit/inspection',
+        component: () => import('@/views/credit/inspection/index'),
+      },
+      {
+        path: '/credit/level',
+        component: () => import('@/views/credit/level/index'),
+      },
+      {
+        path: '/credit/punishment',
+        component: () => import('@/views/credit/punishment/index'),
+      },
+      {
+        path: '/credit/record',
+        component: () => import('@/views/credit/record/index'),
+      },
+      {
+        path: '/credit/rectification',
+        component: () => import('@/views/credit/rectification/index'),
+      },
+      {
+        path: '/credit/type',
+        component: () => import('@/views/credit/type/index'),
+      },
     ]
   }
 ]
