@@ -142,6 +142,14 @@ export const constantRoutes = [
         path: '/credit/type',
         component: () => import('@/views/credit/type/index'),
       },
+      {
+        path: '/funds/info',
+        component: () => import('@/views/funds/info/index'),
+      },
+      {
+        path: '/funds/type',
+        component: () => import('@/views/funds/type/index'),
+      },
     ]
   }
 ]
