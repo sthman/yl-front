@@ -163,7 +163,11 @@ export const constantRoutes = [
         component: () => import('@/views/health/type/index'),
       },
       {
-        path: '/storehouse/category',
+        path: '/storehouse/warehouse',
+        component: () => import('@/views/storehouse/warehouse/index'),
+      },
+      {
+        path: '/storehouse/warehouse/category',
         component: () => import('@/views/storehouse/category/index'),
       },
       {
@@ -171,8 +175,8 @@ export const constantRoutes = [
         component: () => import('@/views/storehouse/item/index'),
       },
       {
-        path: '/storehouse/itemrecipe',
-        component: () => import('@/views/storehouse/item/index'),
+        path: '/storehouse/item/type',
+        component: () => import('@/views/storehouse/type/index'),
       },
       {
         path: '/storehouse/recipe',
@@ -183,25 +187,13 @@ export const constantRoutes = [
         component: () => import('@/views/storehouse/record/index'),
       },
       {
-        path: '/storehouse/type',
-        component: () => import('@/views/storehouse/type/index'),
-      },
-      {
-        path: '/storehouse/warehouse',
-        component: () => import('@/views/storehouse/warehouse/index'),
-      },
-      {
-        path: '/storehouse/witem',
-        component: () => import('@/views/storehouse/witem/index'),
-      },
-       {
         path: '/tickets/telwork',
         component: () => import('@/views/tickets/telwork/index'),
-      }, 
+      },
       {
         path: '/tickets/type',
         component: () => import('@/views/tickets/type/index'),
-      }, 
+      },
       {
         path: '/tickets/worder',
         component: () => import('@/views/tickets/worder/index'),

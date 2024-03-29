@@ -1,18 +1,42 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="物品id，外键" prop="itemId">
+      <el-form-item label="食谱名称" prop="recipeName">
         <el-input
-          v-model="queryParams.itemId"
-          placeholder="请输入物品id，外键"
+          v-model="queryParams.recipeName"
+          placeholder="请输入食谱名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="食谱id，外键" prop="recipeId">
+      <el-form-item label="时间" prop="recipeTime">
+        <el-date-picker clearable
+          v-model="queryParams.recipeTime"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择时间">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="备用列1" prop="beiyong1">
         <el-input
-          v-model="queryParams.recipeId"
-          placeholder="请输入食谱id，外键"
+          v-model="queryParams.beiyong1"
+          placeholder="请输入备用列1"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="备用列2" prop="beiyong2">
+        <el-input
+          v-model="queryParams.beiyong2"
+          placeholder="请输入备用列2"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="备用列3" prop="beiyong3">
+        <el-input
+          v-model="queryParams.beiyong3"
+          placeholder="请输入备用列3"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -31,7 +55,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['storehouse:recipe:add']"
+          v-hasPermi="['system:recipe:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -42,7 +66,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['storehouse:recipe:edit']"
+          v-hasPermi="['system:recipe:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -53,7 +77,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['storehouse:recipe:remove']"
+          v-hasPermi="['system:recipe:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -63,7 +87,7 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['storehouse:recipe:export']"
+          v-hasPermi="['system:recipe:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
@@ -71,8 +95,16 @@
 
     <el-table v-loading="loading" :data="recipeList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="物品id，外键" align="center" prop="itemId" />
-      <el-table-column label="食谱id，外键" align="center" prop="recipeId" />
+      <el-table-column label="食谱id，主键，自增" align="center" prop="recipeId" />
+      <el-table-column label="食谱名称" align="center" prop="recipeName" />
+      <el-table-column label="时间" align="center" prop="recipeTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.recipeTime, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="备用列1" align="center" prop="beiyong1" />
+      <el-table-column label="备用列2" align="center" prop="beiyong2" />
+      <el-table-column label="备用列3" align="center" prop="beiyong3" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -80,14 +112,14 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['storehouse:recipe:edit']"
+            v-hasPermi="['system:recipe:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['storehouse:recipe:remove']"
+            v-hasPermi="['system:recipe:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -101,14 +133,28 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改物品-食谱关系对话框 -->
+    <!-- 添加或修改食谱对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="物品id，外键" prop="itemId">
-          <el-input v-model="form.itemId" placeholder="请输入物品id，外键" />
+        <el-form-item label="食谱名称" prop="recipeName">
+          <el-input v-model="form.recipeName" placeholder="请输入食谱名称" />
         </el-form-item>
-        <el-form-item label="食谱id，外键" prop="recipeId">
-          <el-input v-model="form.recipeId" placeholder="请输入食谱id，外键" />
+        <el-form-item label="时间" prop="recipeTime">
+          <el-date-picker clearable
+            v-model="form.recipeTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="备用列1" prop="beiyong1">
+          <el-input v-model="form.beiyong1" placeholder="请输入备用列1" />
+        </el-form-item>
+        <el-form-item label="备用列2" prop="beiyong2">
+          <el-input v-model="form.beiyong2" placeholder="请输入备用列2" />
+        </el-form-item>
+        <el-form-item label="备用列3" prop="beiyong3">
+          <el-input v-model="form.beiyong3" placeholder="请输入备用列3" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -138,7 +184,7 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 物品-食谱关系表格数据
+      // 食谱表格数据
       recipeList: [],
       // 弹出层标题
       title: "",
@@ -148,8 +194,11 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        itemId: null,
-        recipeId: null
+        recipeName: null,
+        recipeTime: null,
+        beiyong1: null,
+        beiyong2: null,
+        beiyong3: null
       },
       // 表单参数
       form: {},
@@ -162,7 +211,7 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询物品-食谱关系列表 */
+    /** 查询食谱列表 */
     getList() {
       this.loading = true;
       listRecipe(this.queryParams).then(response => {
@@ -179,8 +228,12 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        itemId: null,
-        recipeId: null
+        recipeId: null,
+        recipeName: null,
+        recipeTime: null,
+        beiyong1: null,
+        beiyong2: null,
+        beiyong3: null
       };
       this.resetForm("form");
     },
@@ -196,7 +249,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.itemId)
+      this.ids = selection.map(item => item.recipeId)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
@@ -204,23 +257,23 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加物品-食谱关系";
+      this.title = "添加食谱";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const itemId = row.itemId || this.ids
-      getRecipe(itemId).then(response => {
+      const recipeId = row.recipeId || this.ids
+      getRecipe(recipeId).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改物品-食谱关系";
+        this.title = "修改食谱";
       });
     },
     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.itemId != null) {
+          if (this.form.recipeId != null) {
             updateRecipe(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
@@ -238,9 +291,9 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const itemIds = row.itemId || this.ids;
-      this.$modal.confirm('是否确认删除物品-食谱关系编号为"' + itemIds + '"的数据项？').then(function() {
-        return delRecipe(itemIds);
+      const recipeIds = row.recipeId || this.ids;
+      this.$modal.confirm('是否确认删除食谱编号为"' + recipeIds + '"的数据项？').then(function() {
+        return delRecipe(recipeIds);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
@@ -248,7 +301,7 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('storehouse/recipe/export', {
+      this.download('system/recipe/export', {
         ...this.queryParams
       }, `recipe_${new Date().getTime()}.xlsx`)
     }

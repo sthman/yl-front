@@ -13,7 +13,7 @@ export function listWarehouse(query) {
 export function getWarehouse(warehouseId) {
   return request({
     url: '/storehouse/warehouse/' + warehouseId,
-    method: 'get'
+    method: 'get' 
   })
 }
 

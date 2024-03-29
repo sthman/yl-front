@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询仓库类型列表
 export function listCategory(query) {
   return request({
-    url: '/storehouse/category/list',
+    url: '/storehourse/category/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listCategory(query) {
 // 查询仓库类型详细
 export function getCategory(warehouseTypeId) {
   return request({
-    url: '/storehouse/category/' + warehouseTypeId,
+    url: '/storehourse/category/' + warehouseTypeId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getCategory(warehouseTypeId) {
 // 新增仓库类型
 export function addCategory(data) {
   return request({
-    url: '/storehouse/category',
+    url: '/storehourse/category',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addCategory(data) {
 // 修改仓库类型
 export function updateCategory(data) {
   return request({
-    url: '/storehouse/category',
+    url: '/storehourse/category',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function updateCategory(data) {
 // 删除仓库类型
 export function delCategory(warehouseTypeId) {
   return request({
-    url: '/storehouse/category/' + warehouseTypeId,
+    url: '/storehourse/category/' + warehouseTypeId,
     method: 'delete'
   })
 }

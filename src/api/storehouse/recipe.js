@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询物品-食谱关系列表
+// 查询食谱列表
 export function listRecipe(query) {
   return request({
     url: '/storehouse/recipe/list',
@@ -9,15 +9,15 @@ export function listRecipe(query) {
   })
 }
 
-// 查询物品-食谱关系详细
-export function getRecipe(itemId) {
+// 查询食谱详细
+export function getRecipe(recipeId) {
   return request({
-    url: '/storehouse/recipe/' + itemId,
+    url: '/storehouse/recipe/' + recipeId,
     method: 'get'
   })
 }
 
-// 新增物品-食谱关系
+// 新增食谱
 export function addRecipe(data) {
   return request({
     url: '/storehouse/recipe',
@@ -26,7 +26,7 @@ export function addRecipe(data) {
   })
 }
 
-// 修改物品-食谱关系
+// 修改食谱
 export function updateRecipe(data) {
   return request({
     url: '/storehouse/recipe',
@@ -35,10 +35,10 @@ export function updateRecipe(data) {
   })
 }
 
-// 删除物品-食谱关系
-export function delRecipe(itemId) {
+// 删除食谱
+export function delRecipe(recipeId) {
   return request({
-    url: '/storehouse/recipe/' + itemId,
+    url: '/storehouse/recipe/' + recipeId,
     method: 'delete'
   })
 }

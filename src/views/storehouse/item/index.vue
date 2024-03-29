@@ -63,7 +63,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['storehouse:item:add']"
+          v-hasPermi="['system:item:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -74,7 +74,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['storehouse:item:edit']"
+          v-hasPermi="['system:item:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -85,7 +85,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['storehouse:item:remove']"
+          v-hasPermi="['system:item:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -95,7 +95,7 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['storehouse:item:export']"
+          v-hasPermi="['system:item:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
@@ -117,14 +117,14 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['storehouse:item:edit']"
+            v-hasPermi="['system:item:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['storehouse:item:remove']"
+            v-hasPermi="['system:item:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -306,7 +306,7 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('storehouse/item/export', {
+      this.download('system/item/export', {
         ...this.queryParams
       }, `item_${new Date().getTime()}.xlsx`)
     }
